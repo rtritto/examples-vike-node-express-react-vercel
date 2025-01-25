@@ -5,11 +5,12 @@
     "prod": "NODE_ENV=production node dist/server/index.mjs"
   },
   "dependencies": {
-    "express": "^4.21.1",
+    "hono": "^4.6.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@hono/node-server": "^1.13.7",
     "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",

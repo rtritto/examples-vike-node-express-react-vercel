@@ -4,5 +4,5 @@ import vikeNode from 'vike-node/plugin'
 
 export default {
   cacheDir: '.vite',
-  plugins: [react(), vike({ prerender: true }), vikeNode('server/index.ts')]
+  plugins: [react(), vike({ prerender: true }), vikeNode(process.env.NODE_ENV === 'production' ? 'server/index.ts' : 'server/entry.node.ts')]
 }

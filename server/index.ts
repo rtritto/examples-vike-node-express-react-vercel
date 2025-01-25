@@ -1,12 +1,12 @@
-import express from 'express'
-import vike from 'vike-node/express'
+import { Hono } from 'hono'
+import { handle } from 'hono/vercel'
+import vike from 'vike-node/hono'
 
-export default startServer()
+const app = new Hono()
+app.use(vike())
 
-function startServer() {
-  const app = express()
-  app.use(vike())
-  const port = process.env.PORT || 3000
-  app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
-  return app
-}
+export const GET = handle(app)
+
+export const POST = handle(app)
+
+export default process.env.NODE_ENV === 'production' ? undefined : app
