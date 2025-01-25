@@ -1,9 +1,12 @@
 export { Layout }
 
-import React from 'react'
+import type { JSX } from 'react'
+
 import './Layout.css'
 
-function Layout({ children }) {
+type Props = { children: JSX.Element | JSX.Element[] }
+
+function Layout({ children }: Props) {
   return (
     <PageLayout>
       <Sidebar>
@@ -22,7 +25,7 @@ function Layout({ children }) {
   )
 }
 
-function PageLayout({ children }) {
+function PageLayout({ children }: Props) {
   return (
     <div
       style={{
@@ -36,7 +39,7 @@ function PageLayout({ children }) {
   )
 }
 
-function Sidebar({ children }) {
+function Sidebar({ children }: Props) {
   return (
     <div
       style={{
@@ -54,7 +57,7 @@ function Sidebar({ children }) {
   )
 }
 
-function Content({ children }) {
+function Content({ children }: Props) {
   return (
     <div
       style={{
