@@ -1,9 +1,23 @@
-// Import the built server entry from dist, so import.meta.env and other Vite features
-// are available in the server entry (Vite already processed this file)
-import app from '../dist/server/index.mjs'
+import { renderPage } from 'vike/server'
 
-// Web request handlers support streaming by default on Vercel
-import { connectToWeb } from 'vike-node'
-const handler = connectToWeb(app)
-export const GET = handler
-export const POST = handler
+export default async function handler(req, res) {
+  const { url } = req
+  if (url === undefined) throw new Error('req.url is undefined')
+
+  const pageContextInit = { urlOriginal: req.url }
+  const pageContext = await renderPage(pageContextInit)
+  const { httpResponse } = pageContext
+
+  if (!httpResponse) {
+    res.statusCode = 200
+    res.end()
+    return
+  }
+
+  const { body, statusCode, headers } = httpResponse
+  res.statusCode = statusCode
+  for (const [name, value] of headers) {
+    res.setHeader(name, value)
+  }
+  res.end(body)
+}
